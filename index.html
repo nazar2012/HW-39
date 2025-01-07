@@ -470,6 +470,41 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const products = document.querySelectorAll('.product');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const maxPriceFilter = document.getElementById('maxPrice');
+            const brandFilter = document.getElementById('brandFilter');
+
+            function applyFilters() {
+                const selectedCategory = categoryFilter.value;
+                const maxPrice = parseInt(maxPriceFilter.value, 10) || Infinity;
+                const selectedBrand = brandFilter.value;
+
+                products.forEach(product => {
+                    const productCategory = product.dataset.category;
+                    const productPrice = parseInt(product.dataset.price, 10);
+                    const productBrand = product.dataset.brand;
+
+                    const categoryMatches = selectedCategory === 'all' || productCategory === selectedCategory;
+                    const priceMatches = productPrice <= maxPrice;
+                    const brandMatches = selectedBrand === 'all' || productBrand === selectedBrand;
+
+                    if (categoryMatches && priceMatches && brandMatches) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            }
+
+            categoryFilter.addEventListener('change', applyFilters);
+            maxPriceFilter.addEventListener('input', applyFilters);
+            brandFilter.addEventListener('change', applyFilters);
+        });
+    </script>
+
 </body>
 
 </html>
