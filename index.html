@@ -7,6 +7,19 @@
     <title>Інтернет-магазин</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        .filtet{
+            margin-left: 250px;
+        }
+        .row {
+            row-gap: 10px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
         .navbar-brand {
             font-size: 2.5rem;
             font-weight: bold;
@@ -89,11 +102,42 @@
         </div>
     </nav>
 
+    <div class="container mt-5" id="filters">
+        <h1 class="text-center mb-4">Фільтри для товарів</h1>
+        <div class="row mb-4 filtet">
+            <div class="col-md-3">
+                <select id="categoryFilter" class="form-select">
+                    <option value="all">Усі категорії</option>
+                    <option value="smartphones">Смартфони</option>
+                    <option value="laptops">Ноутбуки</option>
+                    <option value="headphones">Навушники</option>
+                    <option value="smartwatches">Смарт-годинники</option>
+                    <option value="consoles">Ігрові консолі</option>
+                    <option value="fitness">Фітнес-браслети</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" id="maxPrice" class="form-control" placeholder="Макс. ціна (грн)">
+            </div>
+            <div class="col-md-3">
+                <select id="brandFilter" class="form-select">
+                    <option value="all">Усі бренди</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="lenovo">Lenovo</option>
+                    <option value="apple">Apple</option>
+                    <option value="xiaomi">Xiaomi</option>
+                    <option value="sony">Sony</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5" id="products">
         <h1 class="text-center mb-4">Наші товари</h1>
         <div class="row">
             <!-- Товар 1 -->
-            <div class="col-md-4">
+            <div class="col-md-4 product" data-category="smartphones" data-price="12000" data-rating="4"
+                data-brand="samsung">
                 <div class="card">
                     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTBTpNxsxgdKDJZU1x0Jzad_Y0X_NcBB2kQmX53nFKB1seqtFINjI01PlJqLY6t1I3Kpcd8kaKvonCeFNs-9EJ1fK2R9Mws4ov_LJXwUh5gI3j7bn2tD1oz4LzQtrihgIQ-up-wMg&usqp=CAc"
                         class="card-img-top" alt="Смартфон">
@@ -108,7 +152,8 @@
             </div>
 
             <!-- Товар 2 -->
-            <div class="col-md-4">
+            <div class="col-md-4 product" data-category="laptops" data-price="25000" data-rating="5"
+                data-brand="lenovo">
                 <div class="card">
                     <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTaT_8DE4gvu0DstyadRinIql0TRH-TC0-18e1d0kr2svJ2tcQIDZx6cEtgQQgQPQhG05ww9qps3kCHfFtAScQF2LANwi2m42jvV0aZG3-bQK2IoQIYLB1spMWCbkzq6gBLeoJlTA&usqp=CAc"
                         class="card-img-top" alt="Ноутбук">
@@ -123,7 +168,8 @@
             </div>
 
             <!-- Товар 3 -->
-            <div class="col-md-4">
+            <div class="col-md-4 product" data-category="headphones" data-price="8000" data-rating="4"
+                data-brand="apple">
                 <div class="card">
                     <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQgSxFPeQ9_4fmGTAwdPw4FUQ-d_NiBR6d9DWqGGJA2sfGOlcI92HI_6Q3JLegLnlXMxyjPg61V7Dyk6aPpyWM68AxgXf8wO-tEDMc-1Cde3794zsSVCbYYKe-EddxXtwZEHW5HQw&usqp=CAc"
                         class="card-img-top" alt="Навушники">
@@ -138,14 +184,15 @@
             </div>
 
             <!-- Товар 4 -->
-            <div class="col-md-4 mt-4">
+            <div class="col-md-4 product" data-category="smartwatches" data-price="5000" data-rating="5"
+                data-brand="xiaomi">
                 <div class="card">
-                    <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR7QdgAarpsOArRS4EO-_D0SrVKRP_KCSI2G-Nth37MxPh_htPEwrM0WK4Jo9W4shU4SZlQwGhJsP7kynmrbi1-tI9RKUfXVL6pu_GFqJcjneNzs-Wvu01dbs0Uo0mqUBjxyLV4N3o&usqp=CAc"
+                    <img src="https://files.foxtrot.com.ua/PhotoNew/img_0_22162_247_0_1_6K7rlI.jpg"
                         class="card-img-top" alt="Смарт-годинник">
                     <div class="card-body">
-                        <h5 class="card-title">Смарт-годинник Apple Watch</h5>
-                        <p class="card-text">Відстежуйте здоров'я та активність з преміум-якістю.</p>
-                        <p class="card-text"><strong>Ціна: 10,500 грн</strong></p>
+                        <h5 class="card-title">Смарт-годинник Xiaomi Mi Band</h5>
+                        <p class="card-text">Відстеження фізичної активності та моніторинг сну.</p>
+                        <p class="card-text"><strong>Ціна: 5,000 грн</strong></p>
                         <button class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#buyModal">Купити</button>
                     </div>
@@ -153,14 +200,14 @@
             </div>
 
             <!-- Товар 5 -->
-            <div class="col-md-4 mt-4">
+            <div class="col-md-4 product" data-category="consoles" data-price="12000" data-rating="4" data-brand="sony">
                 <div class="card">
-                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSVR7Q_6anNaTwhIm-lGOJJNQII570OyHGfVQb-GU0Se53baOpt0zB3_UpaSPPXi9Z-qboVzoEcqz23YuOeYHCzuNW4Nja3-fsRagwMiAF5WPRwj9RN_srVuVB3TShlTpugFH0Lf91BY7E&usqp=CAc"
+                    <img src="https://brain.com.ua/static/images/prod_img/8/0/U0887380_big_1735614171.jpg"
                         class="card-img-top" alt="Ігрова консоль">
                     <div class="card-body">
-                        <h5 class="card-title">Ігрова консоль PlayStation 5</h5>
-                        <p class="card-text">Неймовірна графіка та широкий вибір ігор для всіх геймерів.</p>
-                        <p class="card-text"><strong>Ціна: 18,000 грн</strong></p>
+                        <h5 class="card-title">Ігрова консоль Sony PlayStation 5</h5>
+                        <p class="card-text">Найсучасніша ігрова консоль з потужною графікою.</p>
+                        <p class="card-text"><strong>Ціна: 12,000 грн</strong></p>
                         <button class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#buyModal">Купити</button>
                     </div>
@@ -168,14 +215,106 @@
             </div>
 
             <!-- Товар 6 -->
-            <div class="col-md-4 mt-4">
+            <div class="col-md-4 product" data-category="fitness" data-price="3000" data-rating="5" data-brand="xiaomi">
                 <div class="card">
-                    <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQx3EiLEg30WVvxS-R4fCnu8AK-qIR-e0uHa0tB4W6yjneyxKjAzA_zIcV7ah6b5_XS3YCUb8kW0YPqUxUxZxpSxfmdugNg_KxFHHpjQNkk1pW2OZNxqXG5HKY-D3sRtQ&usqp=CAc"
+                    <img src="https://flash-store.in.ua/content/images/27/480x480l50nn0/83612753996206.jpeg"
                         class="card-img-top" alt="Фітнес-браслет">
                     <div class="card-body">
-                        <h5 class="card-title">Фітнес-браслет Xiaomi Mi Band</h5>
-                        <p class="card-text">Стежте за своїм здоров'ям з доступним і надійним помічником.</p>
-                        <p class="card-text"><strong>Ціна: 1,200 грн</strong></p>
+                        <h5 class="card-title">Фітнес-браслет Xiaomi Mi Band 5</h5>
+                        <p class="card-text">це фітнес-браслет, який допомагає слідкувати за активністю та здоров'ям</p>
+                        <p class="card-text"><strong>Ціна: 3,000 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Товар 7 -->
+            <div class="col-md-4 product" data-category="smartphones" data-price="15000" data-rating="4"
+                data-brand="apple">
+                <div class="card">
+                    <img src="https://skymarket.ua/image/cache/catalog/telefony/Apple/smartfon-apple-iphone-12-pro-128gb-pacific-blue-(mgmn3-mglr3)-800x800.jpg"
+                        class="card-img-top" alt="Смартфон">
+                    <div class="card-body">
+                        <h5 class="card-title">Смартфон Apple iPhone 12</h5>
+                        <p class="card-text">Це потужний смартфон з швидким процесором та вражаючою камерою.</p>
+                        <p class="card-text"><strong>Ціна: 15,000 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Товар 8 -->
+            <div class="col-md-4 product" data-category="laptops" data-price="20000" data-rating="4" data-brand="dell">
+                <div class="card">
+                    <img src="https://content2.rozetka.com.ua/goods/images/big/497387688.jpg"
+                        class="card-img-top" alt="Ноутбук">
+                    <div class="card-body">
+                        <h5 class="card-title">Ноутбук Dell XPS 13</h5>
+                        <p class="card-text">Легкий та потужний ноутбук для роботи та розваг.</p>
+                        <p class="card-text"><strong>Ціна: 20,000 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Товар 9 -->
+            <div class="col-md-4 product" data-category="headphones" data-price="6000" data-rating="5"
+                data-brand="sony">
+                <div class="card">
+                    <img height="412px" src="https://hires.com.ua/content/images/46/498x536l50nn0/naushniki-sony-wh-1000xm4-tsvetchernyy-17702176566174.jpg"
+                        class="card-img-top" alt="Навушники">
+                    <div class="card-body">
+                        <h5 class="card-title">Навушники Sony WH-1000XM4</h5>
+                        <p class="card-text">Найкраща якість звуку та шумозаглушення забезпечують кристально чистий звук.</p>
+                        <p class="card-text"><strong>Ціна: 6,000 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Товар 10 -->
+            <div class="col-md-4 product" data-category="smartwatches" data-price="4500" data-rating="4"
+                data-brand="huawei">
+                <div class="card">
+                    <img src="https://scdn.comfy.ua/89fc351a-22e7-41ee-8321-f8a9356ca351/https://cdn.comfy.ua/media/catalog/product/h/u/huawei_watch_gt2_46mm_sport_black_02_1.jpg/w_600"
+                        class="card-img-top" alt="Смарт-годинник">
+                    <div class="card-body">
+                        <h5 class="card-title">Смарт-годинник Huawei Watch GT 2</h5>
+                        <p class="card-text">Моніторинг здоров'я та відстеження активності допомагають контролювати фізичну форму.</p>
+                        <p class="card-text"><strong>Ціна: 4,500 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 product" data-category="fitness" data-price="3000" data-rating="4" data-brand="sony">
+                <div class="card">
+                    <img src="https://files.foxtrot.com.ua/PhotoNew/img_0_22162_211_0.jpg"
+                        class="card-img-top" alt="Фітнес-браслет">
+                    <div class="card-body">
+                        <h5 class="card-title">Фітнес-браслет Sony SmartBand</h5>
+                        <p class="card-text">Вимірюйте свою активність і слідкуйте за здоров'ям.</p>
+                        <p class="card-text"><strong>Ціна: 3,000 грн</strong></p>
+                        <button class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#buyModal">Купити</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Товар 7 -->
+            <div class="col-md-4 product" data-category="laptops" data-price="30000" data-rating="5" data-brand="apple">
+                <div class="card">
+                    <img src="https://grokholsky.com/uploads/products/590-590/66c9a2277e944-2024-08-24-12-04-39.webp"
+                        class="card-img-top" alt="Ноутбук">
+                    <div class="card-body">
+                        <h5 class="card-title">Ноутбук Apple MacBook Pro</h5>
+                        <p class="card-text">Потужний ноутбук для професіоналів з надзвичайною продуктивністю.</p>
+                        <p class="card-text"><strong>Ціна: 30,000 грн</strong></p>
                         <button class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#buyModal">Купити</button>
                     </div>
@@ -267,8 +406,53 @@
         </div>
     </div>
 
+    </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const products = document.querySelectorAll('.product');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const maxPriceInput = document.getElementById('maxPrice');
+        const ratingFilter = document.getElementById('ratingFilter');
+        const brandFilter = document.getElementById('brandFilter');
+
+        function filterProducts() {
+            const category = categoryFilter.value;
+            const maxPrice = parseFloat(maxPriceInput.value);
+            const rating = ratingFilter.value;
+            const brand = brandFilter.value;
+
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                const productPrice = parseFloat(product.getAttribute('data-price'));
+                const productRating = product.getAttribute('data-rating');
+                const productBrand = product.getAttribute('data-brand');
+
+                let isVisible = true;
+
+                if (category !== 'all' && productCategory !== category) {
+                    isVisible = false;
+                }
+                if (!isNaN(maxPrice) && productPrice > maxPrice) {
+                    isVisible = false;
+                }
+                if (rating !== 'all' && productRating < rating) {
+                    isVisible = false;
+                }
+                if (brand !== 'all' && productBrand !== brand) {
+                    isVisible = false;
+                }
+
+                product.style.display = isVisible ? 'block' : 'none';
+            });
+        }
+
+        categoryFilter.addEventListener('change', filterProducts);
+        maxPriceInput.addEventListener('input', filterProducts);
+        ratingFilter.addEventListener('change', filterProducts);
+        brandFilter.addEventListener('change', filterProducts);
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const confirmButton = document.querySelector('#buyModal .btn-primary');
