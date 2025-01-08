@@ -11,6 +11,75 @@
             margin-left: 250px;
         }
 
+        #shopping-cart {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: none;
+            border: 1px solid #ccc;
+            background: white;
+            padding: 10px;
+            z-index: 1000;
+            width: 700px;
+        }
+
+        .cart-icon {
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            margin-right: 20px;
+            fill: rgba(var(--bs-emphasis-color-rgb), 0.65);
+        }
+
+        #cart-items {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .cart {
+            text-align: center;
+        }
+
+        .close-cart {
+            cursor: pointer;
+            position: absolute;
+            font-size: 1.5rem;
+            top: -6px;
+            color: #000;
+        }
+
+        .exit-cart {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.10);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 0;
+        }
+
+        .submit {
+            border: none;
+            padding: 3px 8px;
+        }
+
         .row {
             row-gap: 10px;
         }
@@ -101,7 +170,31 @@
                 </ul>
             </div>
         </div>
+        <svg class="cart-icon" id="cart-icon">
+            <use href="./symbol-defs.svg#icon-basket"></use>
+        </svg>
     </nav>
+    <div class="cart" id="shopping-cart">
+        <button id="close-cart" class="exit-cart" type="button">
+            <span class="close-cart">&times;</span>
+        </button>
+        <h2>Кошик для покупок</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Кількість</th>
+                    <th>Ціна</th>
+                    <th>Загальна ціна</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+        <h3>Загальна вартість: <span id="total-price">0 грн</span></h3>
+        <button class="submit" data-bs-toggle="modal" data-bs-target="#buyModal" id="checkout-button">Оформити замовлення</button>
+    </div>
 
     <div class="container mt-5" id="filters">
         <h1 class="text-center mb-4">Фільтри для товарів</h1>
@@ -118,9 +211,6 @@
                 </select>
             </div>
             <div class="col-md-3">
-                <input type="number" id="maxPrice" class="form-control" placeholder="Макс. ціна (грн)">
-            </div>
-            <div class="col-md-3">
                 <select id="brandFilter" class="form-select">
                     <option value="all">Усі бренди</option>
                     <option value="samsung">Samsung</option>
@@ -129,6 +219,9 @@
                     <option value="xiaomi">Xiaomi</option>
                     <option value="sony">Sony</option>
                 </select>
+            </div>
+            <div class="col-md-3">
+                <input type="number" id="maxPrice" class="form-control" placeholder="Макс. ціна (грн)">
             </div>
         </div>
     </div>
@@ -146,8 +239,8 @@
                         <h5 class="card-title">Смартфон Samsung Galaxy</h5>
                         <p class="card-text">Сучасний смартфон з якісною камерою та потужним процесором.</p>
                         <p class="card-text"><strong>Ціна: 12,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Samsung Galaxy"
+                            data-price="12000 грн">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -162,8 +255,8 @@
                         <h5 class="card-title">Ноутбук Lenovo ThinkPad</h5>
                         <p class="card-text">Ідеальний для роботи та навчання. Легкий, швидкий та надійний.</p>
                         <p class="card-text"><strong>Ціна: 25,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Lenovo ThinkPad"
+                            data-price="25000">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -178,8 +271,8 @@
                         <h5 class="card-title">Навушники AirPods Pro</h5>
                         <p class="card-text">Шумозаглушення, висока якість звуку та стильний дизайн.</p>
                         <p class="card-text"><strong>Ціна: 8,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="AirPods Pro" data-price="8000">Додати до
+                            кошика</button>
                     </div>
                 </div>
             </div>
@@ -194,8 +287,8 @@
                         <h5 class="card-title">Смарт-годинник Xiaomi Mi Band</h5>
                         <p class="card-text">Відстеження фізичної активності та моніторинг сну.</p>
                         <p class="card-text"><strong>Ціна: 5,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Xiaomi Mi Band" data-price="5000">Додати
+                            до кошика</button>
                     </div>
                 </div>
             </div>
@@ -209,8 +302,8 @@
                         <h5 class="card-title">Ігрова консоль Sony PlayStation 5</h5>
                         <p class="card-text">Найсучасніша ігрова консоль з потужною графікою.</p>
                         <p class="card-text"><strong>Ціна: 12,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Sony PlayStation 5"
+                            data-price="12000">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -224,8 +317,8 @@
                         <h5 class="card-title">Фітнес-браслет Xiaomi Mi Band 5</h5>
                         <p class="card-text">це фітнес-браслет, який допомагає слідкувати за активністю та здоров'ям</p>
                         <p class="card-text"><strong>Ціна: 3,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Xiaomi Mi Band 5"
+                            data-price="3000">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -240,8 +333,8 @@
                         <h5 class="card-title">Смартфон Apple iPhone 12</h5>
                         <p class="card-text">Це потужний смартфон з швидким процесором та вражаючою камерою.</p>
                         <p class="card-text"><strong>Ціна: 15,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Apple iPhone 12"
+                            data-price="15000">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -255,8 +348,8 @@
                         <h5 class="card-title">Ноутбук Dell XPS 13</h5>
                         <p class="card-text">Легкий та потужний ноутбук для роботи та розваг.</p>
                         <p class="card-text"><strong>Ціна: 20,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Dell XPS 13" data-price="20000">Додати до
+                            кошика</button>
                     </div>
                 </div>
             </div>
@@ -273,8 +366,8 @@
                         <p class="card-text">Найкраща якість звуку та шумозаглушення забезпечують кристально чистий
                             звук.</p>
                         <p class="card-text"><strong>Ціна: 6,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Sony WH-1000XM4" data-price="6000">Додати
+                            до кошика</button>
                     </div>
                 </div>
             </div>
@@ -290,8 +383,8 @@
                         <p class="card-text">Моніторинг здоров'я та відстеження активності допомагають контролювати
                             фізичну форму.</p>
                         <p class="card-text"><strong>Ціна: 4,500 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Huawei Watch GT 2"
+                            data-price="4500">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -304,8 +397,8 @@
                         <h5 class="card-title">Фітнес-браслет Sony SmartBand</h5>
                         <p class="card-text">Вимірюйте свою активність і слідкуйте за здоров'ям.</p>
                         <p class="card-text"><strong>Ціна: 3,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Sony SmartBand" data-price="3000">Додати
+                            до кошика</button>
                     </div>
                 </div>
             </div>
@@ -319,8 +412,8 @@
                         <h5 class="card-title">Ноутбук Apple MacBook Pro</h5>
                         <p class="card-text">Потужний ноутбук для професіоналів з надзвичайною продуктивністю.</p>
                         <p class="card-text"><strong>Ціна: 30,000 грн</strong></p>
-                        <button class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#buyModal">Купити</button>
+                        <button class="btn btn-primary add-to-cart" data-name="Apple MacBook Pro"
+                            data-price="30000">Додати до кошика</button>
                     </div>
                 </div>
             </div>
@@ -400,7 +493,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Ви дійсно бажаєте придбати цей товар? Натисніть "Підтвердити", щоб завершити покупку.
+                    Ви дійсно бажаєте придбати всі ці товари? Натисніть "Підтвердити", щоб завершити покупку.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
@@ -503,6 +596,84 @@
             maxPriceFilter.addEventListener('input', applyFilters);
             brandFilter.addEventListener('change', applyFilters);
         });
+    </script>
+    <script>
+        // Функція для додавання товару до кошика
+        function addToCart(event) {
+            const button = event.target;
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+
+            const cartItems = document.getElementById('cart-items');
+            const existingRow = Array.from(cartItems.children).find(row => row.cells[0].textContent === name);
+
+            if (existingRow) {
+                // Якщо товар вже в кошику, збільшити кількість
+                const quantityInput = existingRow.querySelector('input');
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            } else {
+                // Додати новий товар до кошика
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${name}</td>
+                    <td><input type="number" value="1" min="1" onchange="updateTotalPrice()"></td>
+                    <td>${price} грн</td>
+                    <td>${price} грн</td>
+                    <td><button class="remove-item">Видалити</button></td>
+                `;
+                cartItems.appendChild(newRow);
+            }
+            updateTotalPrice();
+        }
+
+        // Функція для видалення товару з кошика
+        function removeItem(event) {
+            const row = event.target.closest('tr');
+            row.remove();
+            updateTotalPrice();
+        }
+
+        // Функція для оновлення загальної вартості
+        function updateTotalPrice() {
+            const rows = document.querySelectorAll('#cart-items tr');
+            let total = 0;
+            rows.forEach(row => {
+                const price = parseFloat(row.cells[2].textContent.replace(' грн', ''));
+                const quantity = parseInt(row.querySelector('input').value);
+                total += price * quantity;
+                row.cells[3].textContent = `${price * quantity} грн`;
+            });
+            document.getElementById('total-price').textContent = `${total} грн`;
+        }
+
+        // Функція для відкриття/закриття кошика
+        function toggleCart() {
+            const cart = document.getElementById('shopping-cart');
+            cart.style.display = cart.style.display === 'none' || cart.style.display === '' ? 'block' : 'none';
+        }
+
+        // Функція для закриття кошика
+        function closeCart() {
+            document.getElementById('shopping-cart').style.display = 'none';
+        }
+
+        // Додавання обробників подій до кнопок "Додати до кошика"
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        // Додавання обробників подій до кнопок "Видалити"
+        document.getElementById('cart-items').addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-item')) {
+                removeItem(event);
+            }
+        });
+
+        // Додавання обробника подій до іконки кошика
+        document.getElementById('cart-icon').addEventListener('click', toggleCart);
+
+        // Додавання обробника подій до кнопки закриття кошика
+        document.getElementById('close-cart').addEventListener('click', closeCart);
     </script>
 
 </body>
