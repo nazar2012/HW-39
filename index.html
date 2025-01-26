@@ -26,7 +26,6 @@
             transform: scale(1.05);
         }
 
-
         #shopping-cart {
             position: absolute;
             right: 20px;
@@ -125,7 +124,16 @@
 
         .logo {
             width: 40px;
-            margin-right: 10px;
+            margin-right: 15px;
+            height: 40px;
+        }
+
+        .span {
+            background: url(https://i.pinimg.com/originals/9b/b2/e3/9bb2e3f6f32461dbf03a2ed34eb46eee.gif);
+            background-size: cover;
+            background-position: center;
+            background-clip: text;
+            color: transparent;
         }
 
         .modal-header {
@@ -156,7 +164,6 @@
             border-color: #0056b3;
         }
 
-        /* Адаптація для маленьких екранів */
         @media (max-width: 768px) {
             .navbar-nav {
                 flex-direction: column;
@@ -183,7 +190,6 @@
 
             .col-md-4 {
                 flex: 0 0 100%;
-                /* Продукти на всю ширину */
                 max-width: 100%;
             }
 
@@ -259,10 +265,10 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <img class="logo"
-                src="https://w1.pngwing.com/pngs/376/690/png-transparent-mobile-logo-online-shopping-shopping-cart-online-marketplace-mobile-phones-maecenas-windows-marketplace-black.png"
-                alt="photo">
-            <a class="navbar-brand mx-auto" href="#">Інтернет-магазин</a>
+            <svg class="logo">
+                <use href="./symbol-defs-2.svg#icon-cart"></use>
+            </svg>
+            <a class="navbar-brand mx-auto" href="./index.html">Black<span class="span">bird</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
